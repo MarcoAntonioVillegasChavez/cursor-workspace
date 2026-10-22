@@ -1,0 +1,26 @@
+# El repositorio no tenía un flujo de integración continua.
+# Este trabajo solo ejecuta las pruebas; no publica ni despliega.
+
+name: Pruebas
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dotnet-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener el código
+        uses: actions/checkout@v4
+
+      - name: Instalar el SDK indicado en global.json
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Ejecutar las pruebas
+        run: dotnet test CursoCursor.slnx --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
