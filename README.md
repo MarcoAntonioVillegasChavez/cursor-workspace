@@ -8,15 +8,13 @@ utilizando especificaciones, planificación, agentes, pruebas y revisión.
 
 ## Estado actual
 
-Actualmente contamos únicamente con la definición inicial del proyecto:
-la idea, los usuarios, el objetivo y las tecnologías que utilizaremos.
+La solución `CursoCursor.slnx` contiene la API `Talleres.Api` y sus
+pruebas. Esta etapa expone el estado de la API y su documento OpenAPI.
+El catálogo, la disponibilidad y las reservas llegan en incrementos
+siguientes.
 
-Todavía no hemos creado la solución .NET, implementado endpoints ni
-preparado pruebas o scripts de ejecución.
-
-Las siguientes especificaciones se irán definiendo conforme avancemos.
-No debemos asumir que un archivo o una funcionalidad existen sin
-comprobarlo en el proyecto.
+El SDK queda fijado en `global.json`: versión `10.0.100`, con avance
+dentro de la misma banda y sin versiones preliminares.
 
 ## Qué queremos construir
 
@@ -105,14 +103,21 @@ persistencia en base de datos ni despliegue público.
 Los datos se perderán al reiniciar. El control de concurrencia protegerá
 una sola instancia de la aplicación.
 
-## Primer paso
+## Arranque y pruebas
 
-Revisar la definición inicial y confirmar el objetivo, las tecnologías
-y los límites. Después prepararemos la especificación para crear
-la solución y la estructura inicial del proyecto.
+Desde la raíz del repositorio:
 
-Los comandos de ejecución y pruebas se documentarán cuando existan
-los proyectos correspondientes.
+```bash
+dotnet test CursoCursor.slnx
+dotnet run --project src/Talleres.Api --launch-profile http
+```
+
+El perfil `http` escucha en `http://localhost:5080`, con el entorno
+Development, y no abre el navegador. `GET /health` responde
+`{"status":"ok"}`. El documento OpenAPI está en
+`GET /openapi/v1.json` mientras el entorno es Development.
+
+No hace falta una base de datos ni claves de un modelo de IA.
 
 ## Participación en el curso
 
